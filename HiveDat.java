@@ -12,7 +12,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
 
 import utils.Helper;
-import utils.sparkTest;
 
 
 
@@ -90,8 +89,7 @@ public class HiveDat {
 
 	
 	public boolean hiveDat(String IpAddress, String port, String username,
-			String password, String namenodeIP, String sourcefile,
-			String sparkEnable) throws SQLException {
+			String password, String namenodeIP, String sourcefile) throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement stmt1 = null;
@@ -192,13 +190,7 @@ public class HiveDat {
 
 				if (createNewSchema != null && createNewSchema.equals("Y")) {
 					helper.releaseResource(null, stmt1, null);
-					if (sparkEnable != null && sparkEnable.equals("Y")) {
-
-						boolean Flag = spark.sparkPerf(IpAddress, port,
-								username, password, newSchemaName, tableName,
-								schemaName, createNewSchema);
-						log.info("Flag value for spark count is :: "+Flag);
-					} else {
+				
 
 						helper.releaseResource(null, stmt1, null);
 
@@ -224,7 +216,7 @@ public class HiveDat {
 						System.out.println("Elapsed time in seconds: "
 								+ (output / 1000000) * (0.001));
 
-					}
+					
 					log.info("Table created with table name " + tableName
 							+ " in Hive");
 
@@ -233,14 +225,7 @@ public class HiveDat {
 				} else {
 					helper.releaseResource(null, stmt1, rset);
 
-					if (sparkEnable != null && sparkEnable.equals("Y")) {
-
-						boolean Flag = spark.sparkPerf(IpAddress, port,
-								username, password, newSchemaName, tableName,
-								schemaName, createNewSchema); 
-						log.info("Flag value for spark count is :: "+Flag);
-
-					} else {
+				
 						helper.releaseResource(null, stmt1, null);
 
 						long lStartTime = System.nanoTime();
@@ -268,7 +253,7 @@ public class HiveDat {
 								+ " in Hive");
 
 						helper.releaseResource(null, stmt1, rset);
-					}
+					
 				}
 			} else {
 				log.info("Not able to get the connection... Please check log for further Details....");

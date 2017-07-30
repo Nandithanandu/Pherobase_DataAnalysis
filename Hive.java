@@ -27,7 +27,7 @@ public static void main(String args[]){
 			String cnschema = prop.getProperty("createnewschema");
 			String delimiter = prop.getProperty("Delimiter");
 			String tablename = prop.getProperty("tablename");
-			String sparkEnable = prop.getProperty("SPARK_ENABLE");
+			
 			
 			
 			
@@ -36,7 +36,7 @@ public static void main(String args[]){
 			String sourcedel = prop.getProperty("sourceDel");
 			
 			String tableQuery = "create table "+tablename+"(compoundsortedbychainlength string,MW string,chainlength string,functionalgroup string,order string,family string,subfamily string,species string,categoryofchemicals string,generalnameofinsects string) row format delimited "
-					+ "fields terminated by '"+delimiter+"'";
+					+ "fields terminated by '"+delimiter+"|";
 	     
 			HiveDat data = new HiveDat();
 			data.setCreateNewSchema(Schema);
